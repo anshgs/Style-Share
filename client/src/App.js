@@ -1,7 +1,21 @@
 import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import axios from 'axios';
 
 function App() {
+  const [data, setData] = React.useState("");
+
+  const fetchData = React.useCallback(async () => {
+    axios
+      .get("http://localhost:4000/")
+      .then((response) => setData(response.data));
+  }, []);
+
+  React.useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -15,7 +29,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          {data.exampleMessage}
         </a>
       </header>
     </div>
