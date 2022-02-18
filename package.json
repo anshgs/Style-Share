@@ -5,14 +5,16 @@
   "repository": "git@github.com:CS222SP22/course-project-dhs-a",
   "license": "MIT",
   "dependencies": {
-    "concurrently": "^7.0.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.3",
-    "nodemon": "^2.0.15"
+    "concurrently": "^7.0.0"
   },
   "scripts": {
+    "install:client": "echo 'installing client dependencies...' && yarn --cwd client",
+    "install:server": "echo 'installing server dependencies...' && yarn --cwd server",
+    "install:base": "echo 'installing base dependencies...' && yarn install",
+    "install:all": "yarn run install:base && yarn run install:client && yarn run install:server",
+
     "client": "yarn --cwd client run start",
-    "server": "nodemon index",
+    "server": "yarn --cwd server nodemon index",
     "start": "concurrently \"yarn run server\" \"yarn run client\""
   }
 }
