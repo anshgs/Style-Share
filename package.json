@@ -1,0 +1,8 @@
+{
+  "name": "style-share",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:CS222SP22/course-project-dhs-a",
+  "author": "rohit kundu <rkundu3@illinois.edu>",
+  "license": "MIT"
+}
