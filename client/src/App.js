@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import React from 'react';
+import { Link } from "react-router-dom";
 import axios from 'axios';
 
 function App() {
@@ -17,21 +18,17 @@ function App() {
   }, [fetchData]);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {data.exampleMessage}
-        </a>
-      </header>
+    <div>
+      <h1>Main</h1>
+      <nav
+        style={{
+          borderBottom: "solid 1px",
+          paddingBottom: "1rem"
+        }}
+      >
+        <Link to="/edit">Editor</Link> |{" "}
+        <Link to="/style">Style</Link>
+      </nav>
     </div>
   );
 }
