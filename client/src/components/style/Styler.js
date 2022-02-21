@@ -1,8 +1,10 @@
 // placeholder for webpage to stylize image
-export default function Style() {
+const Styler = () => {
   return (
     <main style={{ padding: "1rem 0" }}>
       <h2>Style</h2>
     </main>
   );
-}
+};
+
+export { Styler };

@@ -1,24 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import {
-  BrowserRouter,
-  Routes,
-  Route
-} from "react-router-dom";
-import Edit from "./routes/edit/edit";
-import Style from "./routes/style/style";
+import { ThemeProvider } from "@mui/material";
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { EditPage } from "./pages/EditPage";
+import { StylePage } from "./pages/StylePage";
+import { HomePage } from "./pages/HomePage";
 // import reportWebVitals from './reportWebVitals';
-
+import { theme } from "./GlobalStyle";
 ReactDOM.render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="edit" element={<Edit />} />
-      <Route path="style" element={<Style />} />
-    </Routes>
-  </BrowserRouter>,
-  document.getElementById('root')
+  <ThemeProvider theme={theme}>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="edit" element={<EditPage />} />
+        <Route path="style" element={<StylePage />} />
+      </Routes>
+    </BrowserRouter>
+  </ThemeProvider>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,10 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
-import React from 'react';
+import "./App.css";
+import React from "react";
 import { Link } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
-function App() {
+const App = () => {
   const [data, setData] = React.useState("");
 
   const fetchData = React.useCallback(async () => {
@@ -23,14 +22,13 @@ function App() {
       <nav
         style={{
           borderBottom: "solid 1px",
-          paddingBottom: "1rem"
+          paddingBottom: "1rem",
         }}
       >
-        <Link to="/edit">Editor</Link> |{" "}
-        <Link to="/style">Style</Link>
+        <Link to="/EditPage">Editor</Link> | <Link to="/StylePage">Style</Link>
       </nav>
     </div>
   );
-}
+};
 
 export default App;
