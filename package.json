@@ -5,6 +5,7 @@
   "repository": "git@github.com:CS222SP22/course-project-dhs-a",
   "license": "MIT",
   "dependencies": {
+    "@tensorflow/tfjs": "^3.13.0",
     "concurrently": "^7.0.0"
   },
   "scripts": {
@@ -12,7 +13,6 @@
     "install:server": "echo 'installing server dependencies...' && yarn --cwd server",
     "install:base": "echo 'installing base dependencies...' && yarn install",
     "install:all": "yarn run install:base && yarn run install:client && yarn run install:server",
-
     "client": "yarn --cwd client run start",
     "server": "yarn --cwd server nodemon index",
     "start": "concurrently \"yarn run server\" \"yarn run client\""
