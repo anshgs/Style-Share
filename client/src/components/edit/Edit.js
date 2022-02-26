@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, TransformControls } from "@react-three/drei";
-import { StyleBox } from "./Object";
 import { Scene } from "./Scene";
 import { UI } from "./UI";
 

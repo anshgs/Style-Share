@@ -3,7 +3,6 @@ import Box from '@material-ui/core/Box'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 
 import Button from '@mui/material/Button';
-import { StyleBox } from "./Object";
 import { v4 as uuidv4 } from "uuid";
 
 const UI = (props) => {
