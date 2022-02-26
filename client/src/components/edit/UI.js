@@ -6,13 +6,11 @@ import Button from '@mui/material/Button';
 import { v4 as uuidv4 } from "uuid";
 
 const UI = (props) => {
-  const objects = props.objects;
-
   // reference to the input form
   const inputFile = useRef();
 
   // callback when the input form value changes
-  function handleAddObject(e) {
+  const handleAddObject = (e) => {
     let name = inputFile.current.files[0].name;
     let reader = new FileReader();
 
