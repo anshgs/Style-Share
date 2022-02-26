@@ -1,29 +1,27 @@
 import React, { useRef } from 'react';
 import Box from '@material-ui/core/Box'
-import Stack from '@mui/material/Stack';
+
 import Button from '@mui/material/Button';
 import { StyleBox } from "./Object";
+import { v4 as uuidv4 } from "uuid";
 
 const UI = (props) => {
-
   const objects = props.objects;
-  const inputFile = useRef(null);
+  const inputFile = useRef();
 
   function handleAddObject(e) {
     props.setObjects(prevObjects => {
-      return [...prevObjects, {}];
+      return [...prevObjects, {key: uuidv4(), filepath: inputFile.current.value}];
     })
+    inputFile.current.value = null;
   }
 
   return (
     <Box>
-      <input
-        type="file"
-        id="file"
-        ref={inputFile}
-        style={{ display: "none" }}
-      />
-      <Button variant="contained" onClick={handleAddObject}>Contained</Button>
+      <Button variant="contained" component="label">
+        Upload File
+        <input ref={inputFile} type="file" onChange={handleAddObject} hidden/>
+      </Button>
     </Box>
   );
 };

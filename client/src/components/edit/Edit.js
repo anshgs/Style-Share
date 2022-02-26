@@ -9,6 +9,8 @@ import { UI } from "./UI";
 
 const Edit = () => {
   const [objects, setObjects] = useState([]);
+  const [transformMode, setTransformMode] = useState();
+  const [selectedObject, setSelectedObject] = useState();
 
   // editor should have a scene and a ui
   return (
