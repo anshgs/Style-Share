@@ -7,8 +7,7 @@ const Scene = (props) => {
   const objects = props.objects;
   return (
     objects.map(object => {
-      // return <Object key={object.filepath} filepath={object.filepath}/>
-      return <StyleBox key={object.key}/>
+      return <Object key={object.key} name={object.name} data={object.data}/>
     })
   )
 }

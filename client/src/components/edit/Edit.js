@@ -20,6 +20,7 @@ const Edit = () => {
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 15, 10]} angle={0.3} />
         <Scene objects={objects}/>
+        <gridHelper args={[10, 10, `black`, `gray`]} />
         <OrbitControls makeDefault />
       </Canvas>
     </div>
