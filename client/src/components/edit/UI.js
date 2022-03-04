@@ -43,7 +43,7 @@ const UI = (props) => {
   }
 
   return (
-    <Box style={{position: 'fixed'}}>
+    <Box style={{position: 'fixed', zIndex: 999}}>
       <Button variant="contained" component="label">
         Upload File
         <input ref={inputFile} type="file" onChange={handleAddObject} hidden/>
