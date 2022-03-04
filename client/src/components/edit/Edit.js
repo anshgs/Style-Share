@@ -9,7 +9,7 @@ import { UI } from "./UI";
 const Edit = () => {
   const [objects, setObjects] = useState([]);
   const [transformMode, setTransformMode] = useState("translate");
-  const [selectedObject, setSelectedObject] = useState();
+  const [selectedObject, setSelectedObject] = useState(null);
   const [toggleGrid, setToggleGrid] = useState(true);
 
   const drawGridHelper = () => {
@@ -27,7 +27,7 @@ const Edit = () => {
       <Canvas>
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 15, 10]} angle={0.3} />
-        <Scene objects={objects}/>
+        <Scene objects={objects} transformMode={transformMode} selectedObject={selectedObject} setSelectedObject={setSelectedObject}/>
         {drawGridHelper()}
         <OrbitControls makeDefault />
       </Canvas>
