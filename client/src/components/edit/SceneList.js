@@ -33,7 +33,7 @@ const SceneList = (props) => {
         }
 
         return (
-          <ListItemButton id={object.key} sx={{ pl: 4 }} key={uuidv4()} onClick={handleSelect}
+          <ListItemButton sx={{ pl: 4 }} key={uuidv4()} onClick={handleSelect}
                           style={{backgroundColor: ((props.selected == object.key) ? "#bbdefb" : "white")}}>
             <ListItemText primary={object.name}/>
           </ListItemButton>
@@ -43,11 +43,7 @@ const SceneList = (props) => {
   }
 
   return (
-    <List
-      sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-      component="nav"
-      aria-labelledby="nested-list-subheader"
-    >
+    <List>
       <ListItemButton onClick={handleClick}>
         <ListItemText primary="Objects" />
         {open ? <ExpandLess /> : <ExpandMore />}

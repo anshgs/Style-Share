@@ -23,7 +23,10 @@ const Edit = () => {
   // editor should have a scene and a ui
   return (
     <div style={{ height: "100vh", width: "100vw" }}>
-      <UI objects={objects} setObjects={setObjects} toggleGrid={toggleGrid} setToggleGrid={setToggleGrid} selectedObject={selectedObject} setSelectedObject={setSelectedObject}/>
+      <UI objects={objects} setObjects={setObjects}
+          toggleGrid={toggleGrid} setToggleGrid={setToggleGrid}
+          selectedObject={selectedObject} setSelectedObject={setSelectedObject}
+          transformMode={transformMode} setTransformMode={setTransformMode}/>
       <Canvas>
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 15, 10]} angle={0.3} />

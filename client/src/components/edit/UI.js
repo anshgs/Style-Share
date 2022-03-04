@@ -4,6 +4,7 @@ import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 
 import Button from '@mui/material/Button';
 import { SceneList } from './SceneList';
+import { TransformOptions } from './TransformOptions';
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { v4 as uuidv4 } from "uuid";
@@ -61,6 +62,7 @@ const UI = (props) => {
       </Button>
       <FormControlLabel control={<Checkbox checked={props.toggleGrid} onChange={handleToggleGrid} />} label="Display Grid" />
       <SceneList objects={props.objects} selected={props.selectedObject} setSelected={props.setSelectedObject}/>
+      <TransformOptions transformMode={props.transformMode} setTransformMode={props.setTransformMode}/>
     </Box>
   );
 };
