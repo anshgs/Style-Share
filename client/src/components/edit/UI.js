@@ -3,6 +3,8 @@ import Box from '@material-ui/core/Box'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 
 import Button from '@mui/material/Button';
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { v4 as uuidv4 } from "uuid";
 
 const UI = (props) => {
@@ -35,12 +37,18 @@ const UI = (props) => {
     inputFile.current.value = null;
   }
 
+  // callback when grid helper is toggled
+  const handleToggleGrid = (e) => {
+    props.setToggleGrid(e.target.checked);
+  }
+
   return (
     <Box>
       <Button variant="contained" component="label">
         Upload File
         <input ref={inputFile} type="file" onChange={handleAddObject} hidden/>
       </Button>
+      <FormControlLabel control={<Checkbox checked={props.toggleGrid} onChange={handleToggleGrid} />} label="Display Grid" />
     </Box>
   );
 };
