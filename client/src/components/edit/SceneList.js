@@ -24,13 +24,7 @@ const SceneList = (props) => {
       props.objects.map(object => {
         // if the object name is clicked
         // the object should also be selected
-        const handleSelect = (e) => {
-          if (props.selected == object.key) {
-            props.setSelected(null);
-          } else {
-            props.setSelected(object.key);
-          }
-        }
+        const handleSelect = (e) => (props.selected === object.key) ? props.setSelected(null) : props.setSelected(object.key);
 
         return (
           <ListItemButton sx={{ pl: 4 }} key={uuidv4()} onClick={handleSelect}

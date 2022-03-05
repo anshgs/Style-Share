@@ -12,13 +12,7 @@ const Edit = () => {
   const [selectedObject, setSelectedObject] = useState(null);
   const [toggleGrid, setToggleGrid] = useState(true);
 
-  const drawGridHelper = () => {
-    if (toggleGrid) {
-      return <gridHelper args={[10, 10, `black`, `gray`]} />;
-    } else {
-      return null;
-    }
-  }
+  const drawGridHelper = () => toggleGrid ? <gridHelper args={[10, 10, 'black', 'gray']} /> : null;
 
   // editor should have a scene and a ui
   return (

@@ -28,7 +28,7 @@ const UI = (props) => {
       let count = 0;
       props.objects.forEach((object) => {
         const objectName = object.name.split(' ')[0];
-        if (objectName == name) {
+        if (objectName === name) {
           count++;
         }
       });

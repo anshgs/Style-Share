@@ -12,7 +12,7 @@ const OBJModel = (props) => {
   // we want to keep track of whether or not the mesh is being transformed so
   // the mesh does not get deselected if the transform was on top of the mesh
   const handleClick = (e) => {
-    if ((props.id == props.selected) && (!isMoving)) {
+    if ((props.id === props.selected) && (!isMoving)) {
       props.setSelected(null);
     } else {
       props.setSelected(props.id);
@@ -22,14 +22,14 @@ const OBJModel = (props) => {
   // determine when the mesh should display the transform controls,
   // which is only when it is the selected mesh
   const drawTransform = (e) => {
-    if (props.id == props.selected) {
+    if (props.id === props.selected) {
       return <TransformControls object={mesh}
                                 mode={props.transformMode}
                                 onMouseDown={() => setIsMoving(true)}
                                 onMouseUp={() => setIsMoving(false)} />;
     }
 
-    return <></>;
+    return null;
   }
 
   return (
