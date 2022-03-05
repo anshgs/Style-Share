@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { EditPage } from "./pages/EditPage";
 import { StylePage } from "./pages/StylePage";
 import { HomePage } from "./pages/HomePage";
+import "./index.css";
 // import reportWebVitals from './reportWebVitals';
 import { theme } from "./GlobalStyle";
 ReactDOM.render(
