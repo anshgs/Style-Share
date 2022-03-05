@@ -7,7 +7,7 @@ const Scene = (props) => {
   const objects = props.objects;
   return (
     objects.map(object => {
-      return <OBJModel key={object.key} name={object.name} data={object.data}/>
+      return <OBJModel key={object.key} id={object.key} name={object.name} data={object.data} selected={props.selectedObject} setSelected={props.setSelectedObject} transformMode={props.transformMode}/>
     })
   )
 }
