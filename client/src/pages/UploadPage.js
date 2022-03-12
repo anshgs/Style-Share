@@ -19,7 +19,7 @@ const UploadPage = () => {
               sx={{ alignSelf: "center", margin: "5px" }}
               variant="h4"
             >
-              Image 1 Preview
+              Content Preview
             </Typography>
           </Box>
           <Divider orientation="vertical" sx={{ minHeight: "90vh" }} />
@@ -28,7 +28,7 @@ const UploadPage = () => {
               sx={{ alignSelf: "center", margin: "5px" }}
               variant="h4"
             >
-              Image 2 Preview
+              Style Preview
             </Typography>
           </Box>
         </Box>
