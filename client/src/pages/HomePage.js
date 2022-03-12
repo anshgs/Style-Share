@@ -1,16 +1,8 @@
-import {
-  Box,
-  Typography,
-  Menu,
-  MenuItem,
-  ListItem,
-  ListItemText,
-  Drawer,
-  List,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { NavBar } from "../components/util/NavBar";
 import { makeStyles } from "@mui/styles";
 import { useState } from "react";
+import { NavMenu } from "../components/util/Menu";
 const useStyles = makeStyles({
   wpp: {
     minHeight: "100vh",
@@ -30,33 +22,13 @@ const HomePage = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   return (
     <Box className={classes.wpp}>
-      <NavBar drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
+      <NavBar
+        drawerOpen={drawerOpen}
+        setDrawerOpen={setDrawerOpen}
+        signIn={true}
+      />
+      <NavMenu drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
       <Box>
-        <Drawer
-          open={drawerOpen}
-          anchor="left"
-          onClose={() => setDrawerOpen(false)}
-          variant="persistent"
-          sx={{ zIndex: 1600, "div:nth-child(1)": { position: "relative" } }}
-        >
-          <List>
-            <ListItem button>
-              <ListItemText primary="Home" />
-            </ListItem>
-
-            <ListItem button>
-              <ListItemText primary="About" />
-            </ListItem>
-
-            <ListItem button onClick={(e) => (window.location = "/style")}>
-              <ListItemText primary="Style" />
-            </ListItem>
-
-            <ListItem button onClick={(e) => (window.location = "/edit")}>
-              <ListItemText primary="Edit" />
-            </ListItem>
-          </List>
-        </Drawer>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Typography
             variant={"h2"}
