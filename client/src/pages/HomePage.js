@@ -2,7 +2,9 @@ import { Box, Typography } from "@mui/material";
 import { NavBar } from "../components/util/NavBar";
 import { makeStyles } from "@mui/styles";
 import { useState } from "react";
-import { NavMenu } from "../components/util/Menu";
+import { NavMenu } from "../components/util/NavMenu";
+import React from "react";
+
 const useStyles = makeStyles({
   wpp: {
     minHeight: "100vh",

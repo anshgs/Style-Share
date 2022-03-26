@@ -1,0 +1,16 @@
+{
+  "globals": {
+    "shallow": true,
+    "render": true,
+    "mount": true,
+    "expect": true
+  },
+  "overrides": [
+    {
+      "files": ["*.spec.js"],
+      "rules": {
+        "jest/valid-expect": 0
+      }
+    }
+  ]
+}
