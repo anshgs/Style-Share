@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useState, useRef } from "react";
 import Box from '@mui/material/Box';
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, TransformControls, Environment } from "@react-three/drei";
@@ -7,6 +7,7 @@ import { UI } from "./UI";
 
 
 const Edit = () => {
+  const canvas = useRef();
   const [objects, setObjects] = useState([]);
   const [transformMode, setTransformMode] = useState("translate");
   const [selectedObject, setSelectedObject] = useState(null);
@@ -15,6 +16,26 @@ const Edit = () => {
 
   const drawGridHelper = () => toggleGrid ? <gridHelper args={[10, 10, 'white', 'white']} /> : null;
 
+  // filler code right now to just save the image to disk
+  const saveBlob = (function() {
+  const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.style.display = 'none';
+    return function saveData(blob, fileName) {
+       const url = window.URL.createObjectURL(blob);
+       a.href = url;
+       a.download = fileName;
+       a.click();
+    };
+  }());
+
+  const saveCanvas = () => {
+    canvas.current.toBlob(blob => {
+      // want to eventually send the blob to stylize
+      saveBlob(blob, 'test.jpg');
+    })
+  }
+
   // editor should have a scene and a ui
   return (
     <div style={{ height: "100vh", width: "100vw" }}>
@@ -22,11 +43,11 @@ const Edit = () => {
           toggleGrid={toggleGrid} setToggleGrid={setToggleGrid}
           selectedObject={selectedObject} setSelectedObject={setSelectedObject}
           transformMode={transformMode} setTransformMode={setTransformMode}
-          environment={environment} setEnvironment={setEnvironment}/>
-      <Canvas>
+          environment={environment} setEnvironment={setEnvironment} saveCanvas={saveCanvas}/>
+      <Canvas ref={canvas} gl={{preserveDrawingBuffer: true}}>
         <Suspense fallback={null}>
           <Environment background={true} files={environment} path={'/'} />
-          <ambientLight intensity={0.5} />
+          <ambientLight intensity={0.2} />
           <spotLight position={[10, 15, 10]} angle={0.3} />
           <Scene objects={objects} transformMode={transformMode} selectedObject={selectedObject} setSelectedObject={setSelectedObject}/>
           {drawGridHelper()}
