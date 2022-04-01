@@ -60,6 +60,26 @@ const Edit = () => {
     })
   }
 
+  // filler code right now to just save the image to disk
+  const saveBlob = (function() {
+  const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.style.display = 'none';
+    return function saveData(blob, fileName) {
+       const url = window.URL.createObjectURL(blob);
+       a.href = url;
+       a.download = fileName;
+       a.click();
+    };
+  }());
+
+  const saveCanvas = () => {
+    canvas.current.toBlob(blob => {
+      // want to eventually send the blob to stylize
+      saveBlob(blob, 'test.jpg');
+    })
+  }
+
   // editor should have a scene and a ui
   return (
     <div style={{ height: "100vh", width: "100vw" }}>
@@ -71,6 +91,14 @@ const Edit = () => {
       <Canvas ref={canvas} gl={{preserveDrawingBuffer: true}}>
         <Suspense fallback={null}>
           <Environment background={true} files={environment} path={'/'} />
+<<<<<<< HEAD
+=======
+          <ambientLight intensity={0.2} />
+          <spotLight position={[10, 15, 10]} angle={0.3} />
+          <Scene objects={objects} transformMode={transformMode} selectedObject={selectedObject} setSelectedObject={setSelectedObject}/>
+          {drawGridHelper()}
+          <OrbitControls makeDefault />
+>>>>>>> 97f9175 (add save button)
         </Suspense>
         <ambientLight intensity={0.2} />
         <spotLight position={[10, 15, 10]} angle={0.3} />
