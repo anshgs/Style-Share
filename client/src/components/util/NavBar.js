@@ -1,19 +1,6 @@
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Button,
-  Typography,
-  Menu,
-  MenuItem,
-  ListItem,
-  ListItemText,
-  Drawer,
-  List,
-} from "@mui/material";
+import { AppBar, Toolbar, IconButton, Button, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useState } from "react";
-const NavBar = ({ drawerOpen, setDrawerOpen }) => {
+const NavBar = ({ drawerOpen, setDrawerOpen, signIn }) => {
   return (
     <AppBar position="static">
       <Toolbar variant="dense" sx={{ backgroundColor: "#3ea6fa" }}>
@@ -37,29 +24,33 @@ const NavBar = ({ drawerOpen, setDrawerOpen }) => {
         >
           3D Style Transfer
         </Typography>
-        <Button
-          color="inherit"
-          sx={{
-            textTransform: "none",
-            fontSize: "24px",
-            // backgroundColor: "#3ea6fa",
-            marginRight: "10px",
-            // color: "white",
-          }}
-        >
-          Sign In
-        </Button>
-        <Button
-          color="inherit"
-          sx={{
-            textTransform: "none",
-            fontSize: "24px",
-            // backgroundColor: "#055a9e",
-            // color: "white",
-          }}
-        >
-          Sign Up
-        </Button>
+        {signIn && (
+          <Button
+            color="inherit"
+            sx={{
+              textTransform: "none",
+              fontSize: "24px",
+              // backgroundColor: "#3ea6fa",
+              marginRight: "10px",
+              // color: "white",
+            }}
+          >
+            Sign In
+          </Button>
+        )}
+        {signIn && (
+          <Button
+            color="inherit"
+            sx={{
+              textTransform: "none",
+              fontSize: "24px",
+              // backgroundColor: "#055a9e",
+              // color: "white",
+            }}
+          >
+            Sign Up
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );
