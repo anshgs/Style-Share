@@ -3,12 +3,8 @@ import {
 	Vector3,
 	Vector4
 } from 'three';
-<<<<<<< HEAD
 import * as NURBSUtils from './NURBSUtils.js';
 
-=======
-import * as NURBSUtils from '../curves/NURBSUtils.js';
->>>>>>> 3dedbdc (add tests for 3d editor)
 
 /**
  * NURBS curve object
