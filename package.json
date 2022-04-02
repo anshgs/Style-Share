@@ -5,10 +5,13 @@
   "repository": "git@github.com:CS222SP22/course-project-dhs-a",
   "license": "MIT",
   "dependencies": {
+    "@babel/core": "^7.17.8",
+    "@babel/register": "^7.17.7",
     "@tensorflow/tfjs": "^3.13.0",
     "chai": "^4.3.6",
     "concurrently": "^7.0.0",
     "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "mocha": "^9.2.2"
   },
   "scripts": {
@@ -18,6 +21,8 @@
     "install:all": "yarn run install:base && yarn run install:client && yarn run install:server",
     "client": "yarn --cwd client run start",
     "server": "yarn --cwd server nodemon index",
-    "start": "concurrently \"yarn run server\" \"yarn run client\""
+    "start": "concurrently \"yarn run server\" \"yarn run client\"",
+    "test:unit": "mocha --require @babel/register --require ./client/src/test/helpers.js --require ./client/src/test/dom.js './client/src/**/*.spec.js'",
+    "test:unit:watch": "npm run test:unit -- --watch"
   }
 }
