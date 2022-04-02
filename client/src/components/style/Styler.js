@@ -1,40 +1,66 @@
 // placeholder for webpage to stylize image
-import * as tf from '@tensorflow/tfjs';
-tf.ENV.set('WEBGL_PACK', false); 
+import * as tf from "@tensorflow/tfjs";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+tf.ENV.set("WEBGL_PACK", false);
 
-const Styler = () => {
-  // console.log("aaaa");
-  // const styleImg = new ImageData(1);
-  // styleImg.data[0] = 100;
-  // styleImg.data[1] = 150;
-  // styleImg.data[2] = 200;
-  // styleImg.data[3] = 255;
+const Styler = async () => {
+  const Images = useSelector((state) => state.image);
+  var styleImObj = new Image();
+  var contentImObj = new Image();
+  styleImObj.src = Images[1];
+  contentImObj.src = Images[0];
+  const tensor = await style(contentImObj, styleImObj, 0.5);
+  // const canvas = document.createElement("canvas");
+  // canvas.width = tensor.shape.width;
+  // canvas.height = tensor.shape.height;
+  // tf.browser.toPixels(tensor, canvas).then(() => {
+  //   console.log("???");
+  // });
+  //console.log(tensor);
 
-  // const contentImg = new ImageData(1);
-  // contentImg.data[0] = 100;
-  // contentImg.data[1] = 150;
-  // contentImg.data[2] = 200;
-  // contentImg.data[3] = 255;
-  // console.log("reached");
-  // const retIm = style(styleImg, contentImg, 0.5)
-  return (
-    <main style={{ padding: "1rem 0" }}>
-      <h2>Style</h2>
-      <div> help idk what's going on :)</div>
-      {/* <img srd={retIm} alt='notloading'></img> */}
-    </main>
-  );
+  // return (
+  //   <div>
+  //     {Images[2]}
+  //     {Images[3]}
+  //   </div>
+  // );
 };
 
-const style = (styleImg, contentImg, ratio) => {
-  const styleNet = tf.loadGraphModel('saved_model_style_js/model.json');
-  const transformNet = tf.loadGraphModel('saved_model_transformer_separable_js/model.json');
+const style = async (styleImg, contentImg, ratio) => {
+  const styleNet = await tf.loadGraphModel("saved_model_style_js/model.json");
+  const transformNet = await tf.loadGraphModel(
+    "saved_model_transformer_separable_js/model.json"
+  );
 
-  const firstStyle = styleNet.predict(tf.browser.fromPixels(styleImg).toFloat().div(tf.scalar(255)).expandDims());
-  const secondStyle = styleNet.predict(tf.browser.fromPixels(styleImg).toFloat().div(tf.scalar(255)).expandDims());
-  const bottleneck = ratio*firstStyle + (1-ratio) * secondStyle;
-  const stylized = transformNet.predict([tf.browser.fromPixels(contentImg).toFloat().div(tf.scalar(255)).expandDims(), bottleneck]).squeeze();
-  return tf.browser.toPixels(stylized);
-}
+  let bottleneck = await tf.tidy(() => {
+    return this.styleNet.predict(
+      tf.browser
+        .fromPixels(this.styleImg)
+        .toFloat()
+        .div(tf.scalar(255))
+        .expandDims()
+    );
+  });
+
+  // const firstStyle = styleNet.predict(
+  //   tf.browser.fromPixels(styleImg).toFloat().div(tf.scalar(255)).expandDims()
+  // );
+  // const secondStyle = styleNet.predict(
+  //   tf.browser.fromPixels(styleImg).toFloat().div(tf.scalar(255)).expandDims()
+  // );
+  // const bottleneck = ratio * firstStyle + (1 - ratio) * secondStyle;
+  // const stylized = transformNet
+  //   .predict([
+  //     tf.browser
+  //       .fromPixels(contentImg)
+  //       .toFloat()
+  //       .div(tf.scalar(255))
+  //       .expandDims(),
+  //     bottleneck,
+  //   ])
+  //   .squeeze();
+  // return tf.browser.toPixels(stylized);
+};
 
 export { Styler };

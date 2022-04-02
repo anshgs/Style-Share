@@ -1,8 +1,6 @@
 import { ListItem, ListItemText, Drawer, List } from "@mui/material";
 
 const NavMenu = ({ drawerOpen, setDrawerOpen }) => {
-  console.log(drawerOpen);
-
   return (
     <Drawer
       open={drawerOpen}

@@ -1,55 +1,56 @@
 import { Box, Button, Divider, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { NavBar } from "../components/util/NavBar";
-import { setStyleImage, setContentImage } from "../redux/store";
+import { setImage } from "../redux/store";
 import { useDispatch } from "react-redux";
+import { Redirect, useNavigate } from "react-router-dom";
 
 const UploadPage = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [image1, setImage1] = useState([]);
-  const [image2, setImage2] = useState([]);
-  const [image1URL, setImage1URL] = useState([]);
-  const [image2URL, setImage2URL] = useState([]);
+  const [imageC, setimageC] = useState([]);
+  const [imageS, setimageS] = useState([]);
+  const [imageCURL, setimageCURL] = useState([]);
+  const [imageSURL, setimageSURL] = useState([]);
   const [styleReady, setStyleReady] = useState(false);
 
-  const onImage1Change = (e) => {
-    console.log(e.target.files);
+  const onimageCChange = (e) => {
     if (e.target.files.length !== 1) {
-      setImage1([]);
-      setImage1URL([]);
+      setimageC([]);
+      setimageCURL([]);
     } else {
-      setImage1([e.target.files]);
+      setimageC([e.target.files]);
     }
   };
 
-  const onImage2Change = (e) => {
+  const onimageSChange = (e) => {
     if (e.target.files.length !== 1) {
-      setImage2([]);
-      setImage2URL([]);
+      setimageS([]);
+      setimageSURL([]);
     } else {
-      setImage2([e.target.files]);
+      setimageS([e.target.files]);
     }
   };
 
   useEffect(() => {
-    if (image1.length !== 1) {
+    if (imageC.length !== 1) {
       return;
     }
-    setImage1URL([URL.createObjectURL(image1[0][0])]);
-  }, [image1]);
+    setimageCURL([URL.createObjectURL(imageC[0][0])]);
+  }, [imageC]);
 
   useEffect(() => {
-    if (image2.length !== 1) {
+    if (imageS.length !== 1) {
       return;
     }
-    setImage2URL([URL.createObjectURL(image2[0][0])]);
-  }, [image2]);
+    setimageSURL([URL.createObjectURL(imageS[0][0])]);
+  }, [imageS]);
 
   useEffect(() => {
-    setStyleReady(image1.length === 1 && image2.length === 1);
-  }, [image1, image2]);
+    setStyleReady(imageC.length === 1 && imageS.length === 1);
+  }, [imageC, imageS]);
 
   const dispatch = useDispatch();
+  const nav = useNavigate();
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
@@ -71,9 +72,26 @@ const UploadPage = () => {
             variant="contained"
             sx={{ flex: 1, margin: "5px", backgroundColor: "#32CD32" }}
             onClick={(e) => {
-              dispatch(setStyleImage(image1));
-              dispatch(setStyleImage(image2));
-              window.location = "/style";
+              // dispatch(
+              //   setImage([
+              //
+              //   ])
+              // );
+              dispatch(
+                setImage(
+                  imageCURL[0],
+                  imageSURL[0],
+                  <img alt="" key="content" src={imageCURL[0]} />,
+                  <img alt="" key="style" src={imageSURL[0]} />
+                )
+              );
+              console.log([
+                imageCURL[0],
+                imageSURL[0],
+                <img alt="" key="content" src={imageCURL[0]} />,
+                <img alt="" key="style" src={imageSURL[0]} />,
+              ]);
+              nav("/style");
             }}
           >
             Activate!
@@ -91,7 +109,7 @@ const UploadPage = () => {
             </Typography>
             <img
               alt=""
-              src={image1URL[0]}
+              src={imageCURL[0]}
               style={{ maxWidth: "100%", maxHeight: "100%" }}
             />
           </Box>
@@ -105,7 +123,7 @@ const UploadPage = () => {
             </Typography>
             <img
               alt=""
-              src={image2URL[0]}
+              src={imageSURL[0]}
               style={{ maxWidth: "100%", maxHeight: "100%" }}
             />
           </Box>
@@ -126,7 +144,7 @@ const UploadPage = () => {
           </Button> */}
           <Box sx={{ flex: 1 }}>
             <label
-              htmlFor="image1"
+              htmlFor="imageC"
               style={{
                 alignSelf: "center",
                 display: "block",
@@ -146,10 +164,10 @@ const UploadPage = () => {
             </label>
             <input
               type="file"
-              name="image1"
-              id="image1"
+              name="imageC"
+              id="imageC"
               accept="image/*"
-              onChange={onImage1Change}
+              onChange={onimageCChange}
               style={{ display: "none" }}
             />
           </Box>
@@ -169,7 +187,7 @@ const UploadPage = () => {
           </Button> */}
           <Box sx={{ flex: 1 }}>
             <label
-              htmlFor="image2"
+              htmlFor="imageS"
               style={{
                 alignSelf: "center",
                 display: "block",
@@ -189,10 +207,10 @@ const UploadPage = () => {
             </label>
             <input
               type="file"
-              name="image2"
-              id="image2"
+              name="imageS"
+              id="imageS"
               accept="image/*"
-              onChange={onImage2Change}
+              onChange={onimageSChange}
               style={{
                 display: "none",
               }}
