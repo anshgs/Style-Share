@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
+import { OBJLoader } from './loaders/OBJLoader.js'
+import { FBXLoader } from './loaders/FBXLoader.js'
+import { GLTFLoader } from './loaders/GLTFLoader.js'
+import { DRACOLoader } from './loaders/DRACOLoader.js'
 
 import Button from '@mui/material/Button';
 import { v4 as uuidv4 } from "uuid";
