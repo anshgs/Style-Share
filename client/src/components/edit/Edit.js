@@ -5,6 +5,10 @@ import { OrbitControls, TransformControls, Environment } from "@react-three/drei
 import { Scene } from "./Scene";
 import { UI } from "./UI";
 
+// wrapper for testing
+const GridHelper = () => {
+  return <gridHelper args={[10, 10, 'white', 'white']} />;
+}
 
 const Edit = () => {
   const canvas = useRef();
@@ -14,7 +18,7 @@ const Edit = () => {
   const [toggleGrid, setToggleGrid] = useState(true);
   const [environment, setEnvironment] = useState("environments/autumn_forest.hdr");
 
-  const drawGridHelper = () => toggleGrid ? <gridHelper args={[10, 10, 'white', 'white']} /> : null;
+  const drawGridHelper = () => toggleGrid ? <GridHelper /> : null;
 
   // filler code right now to just save the image to disk
   const saveBlob = (function() {
@@ -58,4 +62,4 @@ const Edit = () => {
   );
 };
 
-export { Edit };
+export { Edit, GridHelper };

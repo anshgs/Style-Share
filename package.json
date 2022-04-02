@@ -22,7 +22,8 @@
     "client": "yarn --cwd client run start",
     "server": "yarn --cwd server nodemon index",
     "start": "concurrently \"yarn run server\" \"yarn run client\"",
-    "test:unit": "mocha --require @babel/register --require ./client/src/test/helpers.js --require ./client/src/test/dom.js './client/src/**/*.spec.js'",
+    "test:client": "yarn --cwd client run test:unit",
+    "test:unit": "yarn run test:client",
     "test:unit:watch": "npm run test:unit -- --watch"
   }
 }
