@@ -19,6 +19,7 @@ const Edit = () => {
   const [environment, setEnvironment] = useState("environments/autumn_forest.hdr");
 
   const drawGridHelper = () => toggleGrid ? <GridHelper /> : null;
+<<<<<<< HEAD
 
   // filler code right now to just save the image to disk
   const saveBlob = (function() {
@@ -59,6 +60,8 @@ const Edit = () => {
       saveBlob(blob, 'test.jpg');
     })
   }
+=======
+>>>>>>> 3dedbdc (add tests for 3d editor)
 
   // filler code right now to just save the image to disk
   const saveBlob = (function() {
