@@ -36,52 +36,6 @@ const Edit = () => {
     };
   }());
 
-  const saveCanvas = (style) => {
-    canvas.current.toBlob(blob => {
-      console.log(blob);
-      if (style) {
-        dispatch(setStyleImage(blob));
-      } else {
-        dispatch(setContentImage(blob));
-      }
-
-      window.location = "/home";
-    })
-  }
-
-  // filler code right now to just save the image to disk
-  const saveBlob = (function() {
-  const a = document.createElement('a');
-    document.body.appendChild(a);
-    a.style.display = 'none';
-    return function saveData(blob, fileName) {
-       const url = window.URL.createObjectURL(blob);
-       a.href = url;
-       a.download = fileName;
-       a.click();
-    };
-  }());
-
-  const saveCanvas = () => {
-    canvas.current.toBlob(blob => {
-      // want to eventually send the blob to stylize
-      saveBlob(blob, 'test.jpg');
-    })
-  }
-
-  // filler code right now to just save the image to disk
-  const saveBlob = (function() {
-  const a = document.createElement('a');
-    document.body.appendChild(a);
-    a.style.display = 'none';
-    return function saveData(blob, fileName) {
-       const url = window.URL.createObjectURL(blob);
-       a.href = url;
-       a.download = fileName;
-       a.click();
-    };
-  }());
-
   const saveCanvas = () => {
     canvas.current.toBlob(blob => {
       // want to eventually send the blob to stylize
