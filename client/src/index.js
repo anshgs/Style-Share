@@ -9,17 +9,21 @@ import { UploadPage } from "./pages/UploadPage";
 import "./index.css";
 // import reportWebVitals from './reportWebVitals';
 import { theme } from "./GlobalStyle";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="edit" element={<EditPage />} />
-        <Route path="style" element={<StylePage />} />
-        <Route path="upload" element={<UploadPage />} />
-      </Routes>
-    </BrowserRouter>
-  </ThemeProvider>,
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="edit" element={<EditPage />} />
+          <Route path="style" element={<StylePage />} />
+          <Route path="upload" element={<UploadPage />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
+  </Provider>,
   document.getElementById("root")
 );
 

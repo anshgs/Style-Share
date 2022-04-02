@@ -1,6 +1,8 @@
 import { Box, Button, Divider, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { NavBar } from "../components/util/NavBar";
+import { setStyleImage, setContentImage } from "../redux/store";
+import { useDispatch } from "react-redux";
 
 const UploadPage = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -8,20 +10,31 @@ const UploadPage = () => {
   const [image2, setImage2] = useState([]);
   const [image1URL, setImage1URL] = useState([]);
   const [image2URL, setImage2URL] = useState([]);
+  const [styleReady, setStyleReady] = useState(false);
 
   const onImage1Change = (e) => {
-    setImage1([e.target.files]);
+    console.log(e.target.files);
+    if (e.target.files.length !== 1) {
+      setImage1([]);
+      setImage1URL([]);
+    } else {
+      setImage1([e.target.files]);
+    }
   };
 
   const onImage2Change = (e) => {
-    setImage2([e.target.files]);
+    if (e.target.files.length !== 1) {
+      setImage2([]);
+      setImage2URL([]);
+    } else {
+      setImage2([e.target.files]);
+    }
   };
 
   useEffect(() => {
     if (image1.length !== 1) {
       return;
     }
-    console.log(image1[0][0]);
     setImage1URL([URL.createObjectURL(image1[0][0])]);
   }, [image1]);
 
@@ -32,6 +45,12 @@ const UploadPage = () => {
     setImage2URL([URL.createObjectURL(image2[0][0])]);
   }, [image2]);
 
+  useEffect(() => {
+    setStyleReady(image1.length === 1 && image2.length === 1);
+  }, [image1, image2]);
+
+  const dispatch = useDispatch();
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <NavBar
@@ -39,6 +58,28 @@ const UploadPage = () => {
         setDrawerOpen={setDrawerOpen}
         signIn={true}
       ></NavBar>
+      {styleReady && (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "column",
+            flex: 2,
+          }}
+        >
+          <Button
+            variant="contained"
+            sx={{ flex: 1, margin: "5px", backgroundColor: "#32CD32" }}
+            onClick={(e) => {
+              dispatch(setStyleImage(image1));
+              dispatch(setStyleImage(image2));
+              window.location = "/style";
+            }}
+          >
+            Activate!
+          </Button>
+        </Box>
+      )}
       <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
         <Box sx={{ display: "flex", flexDirection: "row", flex: 12 }}>
           <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>

@@ -16,8 +16,8 @@ const NavMenu = ({ drawerOpen, setDrawerOpen }) => {
           <ListItemText primary="Home" />
         </ListItem>
 
-        <ListItem button>
-          <ListItemText primary="About" />
+        <ListItem button onClick={(e) => (window.location = "/upload")}>
+          <ListItemText primary="Upload" />
         </ListItem>
 
         <ListItem button onClick={(e) => (window.location = "/style")}>
