@@ -47,12 +47,12 @@ const Edit = () => {
       <Canvas ref={canvas} gl={{preserveDrawingBuffer: true}}>
         <Suspense fallback={null}>
           <Environment background={true} files={environment} path={'/'} />
-          <ambientLight intensity={0.2} />
-          <spotLight position={[10, 15, 10]} angle={0.3} />
-          <Scene objects={objects} transformMode={transformMode} selectedObject={selectedObject} setSelectedObject={setSelectedObject}/>
-          {drawGridHelper()}
-          <OrbitControls makeDefault />
         </Suspense>
+        <ambientLight intensity={0.2} />
+        <spotLight position={[10, 15, 10]} angle={0.3} />
+        <OrbitControls makeDefault />
+        <Scene objects={objects} transformMode={transformMode} selectedObject={selectedObject} setSelectedObject={setSelectedObject}/>
+        {drawGridHelper()}
       </Canvas>
     </div>
   );
