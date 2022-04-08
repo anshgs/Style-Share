@@ -5,7 +5,10 @@
   "repository": "git@github.com:CS222SP22/course-project-dhs-a",
   "license": "MIT",
   "dependencies": {
-    "@babel/core": "^7.17.8",
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
     "@babel/register": "^7.17.7",
     "@tensorflow/tfjs": "^3.13.0",
     "chai": "^4.3.6",
