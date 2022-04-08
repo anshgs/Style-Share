@@ -4,45 +4,79 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 tf.ENV.set("WEBGL_PACK", false);
 
-const Styler = async () => {
+const Styler = () => {
   const Images = useSelector((state) => state.image);
   var styleImObj = new Image();
   var contentImObj = new Image();
   styleImObj.src = Images[1];
   contentImObj.src = Images[0];
-  const tensor = await style(contentImObj, styleImObj, 0.5);
-  // const canvas = document.createElement("canvas");
-  // canvas.width = tensor.shape.width;
-  // canvas.height = tensor.shape.height;
+  const canvas = document.createElement("canvas");
+  canvas.width = 1500;
+  canvas.height = 1000;
+  const tensor = style(contentImObj, styleImObj, 0.5, canvas);
+
   // tf.browser.toPixels(tensor, canvas).then(() => {
   //   console.log("???");
   // });
   //console.log(tensor);
 
-  // return (
-  //   <div>
-  //     {Images[2]}
-  //     {Images[3]}
-  //   </div>
-  // );
+  return (
+    <div>
+      {Images[2]}
+      {Images[3]}
+    </div>
+  );
 };
 
-const style = async (styleImg, contentImg, ratio) => {
+const style = async (styleImg, contentImg, ratio, canvas) => {
   const styleNet = await tf.loadGraphModel("saved_model_style_js/model.json");
   const transformNet = await tf.loadGraphModel(
     "saved_model_transformer_separable_js/model.json"
   );
 
   let bottleneck = await tf.tidy(() => {
-    return this.styleNet.predict(
+    return styleNet.predict(
+      tf.browser.fromPixels(styleImg).toFloat().div(tf.scalar(255)).expandDims()
+    );
+  });
+
+  await tf.nextFrame();
+  const identityBottleneck = await tf.tidy(() => {
+    return styleNet.predict(
       tf.browser
-        .fromPixels(this.styleImg)
+        .fromPixels(contentImg)
         .toFloat()
         .div(tf.scalar(255))
         .expandDims()
     );
   });
+  const styleBottleneck = bottleneck;
+  bottleneck = await tf.tidy(() => {
+    const styleBottleneckScaled = styleBottleneck.mul(tf.scalar(ratio));
+    const identityBottleneckScaled = identityBottleneck.mul(
+      tf.scalar(1.0 - ratio)
+    );
+    return styleBottleneckScaled + identityBottleneckScaled;
+  });
+  styleBottleneck.dispose();
+  identityBottleneck.dispose();
 
+  await tf.nextFrame();
+  const stylized = await tf.tidy(() => {
+    return transformNet
+      .predict([
+        tf.browser
+          .fromPixels(contentImg)
+          .toFloat()
+          .div(tf.scalar(255))
+          .expandDims(),
+        bottleneck,
+      ])
+      .squeeze();
+  });
+  await tf.browser.toPixels(stylized, canvas);
+  bottleneck.dispose(); // Might wanna keep this around
+  return stylized;
   // const firstStyle = styleNet.predict(
   //   tf.browser.fromPixels(styleImg).toFloat().div(tf.scalar(255)).expandDims()
   // );
