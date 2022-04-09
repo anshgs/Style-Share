@@ -1,40 +1,48 @@
 import { createStore, combineReducers } from "redux";
 
-const imageInitState = {
+const imageStyleInitState = {
   image: [],
 };
 
-const setImage = (
-  contentImageBLOB,
-  styleImageBLOB,
-  contentImageTAG,
-  styleImageTAG
-) => {
+const imageContentInitState = {
+  image: [],
+};
+
+const setStyleImage = (styleImageBLOB, styleImageTAG) => {
   return {
-    type: "set",
-    contentImageBLOB: contentImageBLOB,
+    type: "setS",
     styleImageBLOB: styleImageBLOB,
-    contentImageTAG: contentImageTAG,
     styleImageTAG: styleImageTAG,
   };
 };
 
-const inputImage = (state = imageInitState, action) => {
+const setContentImage = (contentImageBLOB, contentImageTAG) => {
+  return {
+    type: "setC",
+    contentImageBLOB: contentImageBLOB,
+    contentImageTAG: contentImageTAG,
+  };
+};
+
+const inputStyleImage = (state = imageStyleInitState, action) => {
   //console.log(action.image, "content");
   return {
     ...state,
-    image: [
-      action.contentImageBLOB,
-      action.styleImageBLOB,
-      action.contentImageTAG,
-      action.styleImageTAG,
-    ],
+    image: [action.styleImageBLOB, action.styleImageTAG],
+  };
+};
+
+const inputContentImage = (state = imageContentInitState, action) => {
+  //console.log(action.image, "content");
+  return {
+    ...state,
+    image: [action.contentImageBLOB, action.contentImageTAG],
   };
 };
 
 const store = createStore(
-  inputImage,
+  combineReducers(inputStyleImage, inputContentImage),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
-export { setImage, store };
+export { setContentImage, setStyleImage, store };
