@@ -1,44 +1,103 @@
-import dotenv from 'dotenv';
-import cors from 'cors';
-import express from 'express';
-import passport from 'passport';
+const express = require("express");
+const bodyParser = require("body-parser");
+const multer = require("multer");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
 
-import db from './models/index.js';
-import routes from './routes/index.js';
+const mongoose = require('mongoose');
+const passport = require("passport");
 
-dotenv.config();
-const isProduction = process.env.NODE_ENV === 'production';
+const authRoutes = require("./routes/auth.routes");
+const imageRoutes = require("./routes/images.routes");
 
-const { json, urlencoded } = express;
-const { mongoose, uri } = db;
+require("./config/passport");
+require("./config/google.js");
+
+require('https').globalAgent.options.rejectUnauthorized = false;
+
+const db = 'mongodb://localhost:27888/style-transfer-db'
+mongoose.connect(
+  db,
+  {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+  },
+  (error) => {
+    if (error) console.log(error)
+  }
+)
 
 const app = express();
 
-const corsOptions = {
-  origin: '*',
-};
-app.use(cors(corsOptions));
+const multerMid = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024,
+  }
+});
 
-app.use(json({ limit: '30mb', extended: true }));
+app.disable("x-powered-by");
+app.use(multerMid.single("file"));
 
-app.use(urlencoded({ limit: '30mb', extended: true }));
 
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.use('/api', routes);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-mongoose.connect(
-  uri, 
-  {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-  }).then(() => {
-    console.log('Connected to the database!');
-  }).catch((err) => {
-    console.log('Cannot connect to the database!', err);
-    process.exit();
+app.use(cookieParser());
+
+app.use(
+  session({
+    secret: "verySecretSecret",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+app.use("/auth/", authRoutes);
+app.use("/api/", imageRoutes);
+
+app.get("/", (req, res) => {
+  res.send("hi");
 });
 
 
-// set port, listen for requests
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, console.log(`Server is running on port ${PORT}.`));
+// const isLoggedIn = (req, res, next) => {
+//   req.user ? next() : res.sendStatus(401);
+// };
+
+
+
+// app.post('/uploads', async (req, res, next) => {
+//   try {
+//     const myFile = req.file
+//     const imageUrl = await uploadImage(myFile)
+
+//     res
+//       .status(200)
+//       .json({
+//         message: "Upload was successful",
+//         data: imageUrl
+//       })
+//   } catch (error) {
+//     next(error)
+//   }
+// })
+
+app.use((err, req, res, next) => {
+  res.status(500).json({
+    error: err,
+    message: 'Internal server error!',
+  })
+  next()
+})
+
+
+
+app.listen(3000, function () {
+  console.log("Style-Transfer API Running on Port 3000");
+});

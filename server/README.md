@@ -11,4 +11,4 @@ docker pull mongo
 docker run -p 27888:27017 mongo
 ```
 
-The first command pulls a container with MongoDB, and the second command exposes the localhost port ``27888`` to the container port ``27017`` which is the port used to access the database.
+The first command pulls a container with MongoDB, and the second command exposes the localhost port ``27888`` to the container port ``27017`` which is the port used to access the database. If you have MongoDB Compass, you can look at entries within the database with the connection string ``mongodb://localhost:27017``.
