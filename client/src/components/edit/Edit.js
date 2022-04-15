@@ -38,13 +38,14 @@ const Edit = () => {
 
   const saveCanvas = (style) => {
     canvas.current.toBlob(blob => {
-      // want to eventually send the blob to stylize
+      console.log(blob);
       if (style) {
         dispatch(setStyleImage(blob));
       } else {
         dispatch(setContentImage(blob));
       }
 
+      window.location = "/home";
     })
   }
 

@@ -18,6 +18,7 @@ ReactDOM.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="home" element={<HomePage />} />
           <Route path="edit" element={<EditPage />} />
           <Route path="style" element={<StylePage />} />
           <Route path="upload" element={<UploadPage />} />
