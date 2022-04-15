@@ -36,10 +36,15 @@ const Edit = () => {
     };
   }());
 
-  const saveCanvas = () => {
+  const saveCanvas = (style) => {
     canvas.current.toBlob(blob => {
-      // want to eventually send the blob to stylize
-      saveBlob(blob, 'test.jpg');
+      if (style) {
+        dispatch(setStyleImage(blob));
+      } else {
+        dispatch(setContentImage(blob));
+      }
+
+      window.location = "/upload";
     })
   }
 
