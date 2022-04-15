@@ -1,7 +1,7 @@
 import { Box, Button, Divider, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { NavBar } from "../components/util/NavBar";
-import { setImage } from "../redux/store";
+import { setContentImage, setStyleImage } from "../redux/store";
 import { useDispatch } from "react-redux";
 import { Redirect, useNavigate } from "react-router-dom";
 
@@ -78,11 +78,15 @@ const UploadPage = () => {
               //   ])
               // );
               dispatch(
-                setImage(
-                  imageCURL[0],
+                setStyleImage(
                   imageSURL[0],
-                  <img alt="" key="content" src={imageCURL[0]} />,
                   <img alt="" key="style" src={imageSURL[0]} />
+                )
+              );
+              dispatch(
+                setContentImage(
+                  imageCURL[0],
+                  <img alt="" key="content" src={imageCURL[0]} />,
                 )
               );
               console.log([

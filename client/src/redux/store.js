@@ -41,7 +41,7 @@ const inputContentImage = (state = imageContentInitState, action) => {
 };
 
 const store = createStore(
-  combineReducers(inputStyleImage, inputContentImage),
+  combineReducers({inputStyleImage: inputStyleImage, inputContentImage: inputContentImage}),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
