@@ -95,7 +95,7 @@ const UploadPage = () => {
                 <img alt="" key="content" src={imageCURL[0]} />,
                 <img alt="" key="style" src={imageSURL[0]} />,
               ]);
-              nav("/style");
+              nav("/imgtest");
             }}
           >
             Activate!
