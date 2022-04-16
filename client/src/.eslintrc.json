@@ -5,11 +5,15 @@
     "mount": true,
     "expect": true
   },
+  "rules": {
+    "no-unused-expressions": "off"
+  },
   "overrides": [
     {
       "files": ["*.spec.js"],
       "rules": {
-        "jest/valid-expect": 0
+        "jest/valid-expect": 0,
+        "no-unused-expressions": "off"
       }
     }
   ]
