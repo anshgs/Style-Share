@@ -222,6 +222,49 @@ const UploadPage = () => {
           </Box>
         </Box>
       </Box>
+      {styleReady && (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "column",
+            flex: 2,
+          }}
+        >
+          <Button
+            variant="contained"
+            sx={{ flex: 1, margin: "5px", backgroundColor: "#32CD32" }}
+            onClick={(e) => {
+              // dispatch(
+              //   setImage([
+              //
+              //   ])
+              // );
+              dispatch(
+                setStyleImage(
+                  imageSURL[0],
+                  <img alt="" key="style" src={imageSURL[0]} />
+                )
+              );
+              dispatch(
+                setContentImage(
+                  imageCURL[0],
+                  <img alt="" key="content" src={imageCURL[0]} />,
+                )
+              );
+              console.log([
+                imageCURL[0],
+                imageSURL[0],
+                <img alt="" key="content" src={imageCURL[0]} />,
+                <img alt="" key="style" src={imageSURL[0]} />,
+              ]);
+              nav("/style");
+            }}
+          >
+            Activate!
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 };

@@ -1,11 +1,11 @@
 import { createStore, combineReducers } from "redux";
 
 const imageStyleInitState = {
-  image: [],
+  imageS: [],
 };
 
 const imageContentInitState = {
-  image: [],
+  imageC: [],
 };
 
 const setStyleImage = (styleImageBLOB, styleImageTAG) => {
@@ -26,18 +26,28 @@ const setContentImage = (contentImageBLOB, contentImageTAG) => {
 
 const inputStyleImage = (state = imageStyleInitState, action) => {
   //console.log(action.image, "content");
-  return {
-    ...state,
-    image: [action.styleImageBLOB, action.styleImageTAG],
-  };
+  switch(action.type){
+    case "setS":
+      return {
+        ...state,
+        imageS: [action.styleImageBLOB, action.styleImageTAG],
+      };
+    default:
+      return state
+  }
 };
 
 const inputContentImage = (state = imageContentInitState, action) => {
   //console.log(action.image, "content");
-  return {
-    ...state,
-    image: [action.contentImageBLOB, action.contentImageTAG],
-  };
+  switch(action.type){
+    case "setC":
+      return {
+        ...state,
+        imageC: [action.contentImageBLOB, action.contentImageTAG],
+      };
+    default:
+      return state
+  }
 };
 
 const store = createStore(
