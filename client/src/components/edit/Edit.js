@@ -1,4 +1,5 @@
 import React, { Suspense, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, TransformControls, Environment } from "@react-three/drei";
@@ -15,6 +16,7 @@ const GridHelper = () => {
 const Edit = () => {
   const canvas = useRef();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [objects, setObjects] = useState([]);
   const [transformMode, setTransformMode] = useState("translate");
   const [selectedObject, setSelectedObject] = useState(null);
@@ -38,13 +40,15 @@ const Edit = () => {
 
   const saveCanvas = (style) => {
     canvas.current.toBlob(blob => {
+      const imageUrl = URL.createObjectURL(blob);
       if (style) {
-        dispatch(setStyleImage(blob));
+        dispatch(setStyleImage(imageUrl, <img alt="" key="content" src={imageUrl} />));
       } else {
-        dispatch(setContentImage(blob));
+        dispatch(setContentImage(imageUrl, <img alt="" key="content" src={imageUrl} />));
       }
 
-      window.location = "/upload";
+      // redirect to the image/style page after scene is saved
+      navigate("/upload");
     })
   }
 
