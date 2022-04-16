@@ -7,6 +7,7 @@ import { EditPage } from "./pages/EditPage";
 import { StylePage } from "./pages/StylePage";
 import { HomePage } from "./pages/HomePage";
 import { UploadPage } from "./pages/UploadPage";
+import { TestPage } from "./pages/TestPage";
 import "./index.css";
 // import reportWebVitals from './reportWebVitals';
 import { theme } from "./GlobalStyle";
@@ -22,6 +23,7 @@ ReactDOM.render(
           <Route path="edit" element={<EditPage />} />
           <Route path="style" element={<StylePage />} />
           <Route path="upload" element={<UploadPage />} />
+          <Route path="imgtest" element={<TestPage />}/>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
