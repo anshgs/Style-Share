@@ -2,15 +2,21 @@ import { Box, Button, Divider, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { NavBar } from "../components/util/NavBar";
 import { setContentImage, setStyleImage } from "../redux/store";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useNavigate } from "react-router-dom";
-
+import { NavMenu } from "../components/util/NavMenu";
 const UploadPage = () => {
+
+  const dispatch = useDispatch();
+  const reduxCURL = useSelector((state) => state.inputContentImage);
+  const reduxSURL = useSelector((state) => state.inputStyleImage);
+
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [imageC, setimageC] = useState([]);
   const [imageS, setimageS] = useState([]);
-  const [imageCURL, setimageCURL] = useState([]);
-  const [imageSURL, setimageSURL] = useState([]);
+  console.log(reduxCURL.imageC, reduxSURL.imageS)
+  const [imageCURL, setimageCURL] = useState(reduxCURL.imageC);
+  const [imageSURL, setimageSURL] = useState(reduxSURL.imageS);
   const [styleReady, setStyleReady] = useState(false);
 
   const onimageCChange = (e) => {
@@ -46,10 +52,9 @@ const UploadPage = () => {
   }, [imageS]);
 
   useEffect(() => {
-    setStyleReady(imageC.length === 1 && imageS.length === 1);
-  }, [imageC, imageS]);
+    setStyleReady(imageCURL.length >= 1 && imageSURL.length >= 1);
+  }, [imageCURL, imageSURL]);
 
-  const dispatch = useDispatch();
   const nav = useNavigate();
 
   return (
@@ -58,7 +63,9 @@ const UploadPage = () => {
         drawerOpen={drawerOpen}
         setDrawerOpen={setDrawerOpen}
         signIn={true}
+        style={{outline: "solid"}}
       ></NavBar>
+      {drawerOpen && <NavMenu drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />}
       {styleReady && (
         <Box
           sx={{
