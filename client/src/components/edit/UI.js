@@ -23,8 +23,8 @@ const UI = (props) => {
       <SceneList objects={props.objects} selected={props.selectedObject} setSelected={props.setSelectedObject}/>
       <TransformOptions transformMode={props.transformMode} setTransformMode={props.setTransformMode}/>
       <EnvironmentSelector environment={props.environment} setEnvironment={props.setEnvironment}/>
-      <SaveStyleButton saveCanvas={props.saveCanvas}/>
       <SaveContentButton saveCanvas={props.saveCanvas}/>
+      <SaveStyleButton saveCanvas={props.saveCanvas}/>
     </Box>
   );
 };
