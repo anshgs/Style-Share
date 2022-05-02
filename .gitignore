@@ -1,3 +1,7 @@
 node_modules/
 yarn-error.log
 ml_training/images
+
+__pycache__/
+env/
+creds.json
