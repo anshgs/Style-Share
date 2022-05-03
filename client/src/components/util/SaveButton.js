@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import Button from '@mui/material/Button';
 
-
 const SaveStyleButton = (props) => {
   // callback to delete object
   const handleOnClick = (e) => {
@@ -30,4 +29,18 @@ const SaveContentButton = (props) => {
   );
 }
 
-export { SaveStyleButton, SaveContentButton }
+const DownloadButton = (props) => {
+  // callback to delete object
+  const handleOnClick = (e) => {
+    // only add back objects that do not match the selected object
+    props.saveCanvas();
+  }
+
+  return (
+    <Button variant="contained" component="label" onClick={handleOnClick}>
+      Download Image
+    </Button>
+  );
+}
+
+export { SaveStyleButton, SaveContentButton, DownloadButton }

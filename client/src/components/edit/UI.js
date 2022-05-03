@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import Box from '@material-ui/core/Box'
 import { UploadButton } from "./UploadButton";
 import { DeleteButton } from "./DeleteButton";
-import { SaveStyleButton, SaveContentButton } from "./SaveButton";
+import { SaveStyleButton, SaveContentButton } from "../util/SaveButton";
 import { SceneList } from './SceneList';
 import { EnvironmentSelector } from './EnvironmentSelector';
 import { TransformOptions } from './TransformOptions';
@@ -23,8 +23,8 @@ const UI = (props) => {
       <SceneList objects={props.objects} selected={props.selectedObject} setSelected={props.setSelectedObject}/>
       <TransformOptions transformMode={props.transformMode} setTransformMode={props.setTransformMode}/>
       <EnvironmentSelector environment={props.environment} setEnvironment={props.setEnvironment}/>
-      <SaveStyleButton saveCanvas={props.saveCanvas}/>
       <SaveContentButton saveCanvas={props.saveCanvas}/>
+      <SaveStyleButton saveCanvas={props.saveCanvas}/>
     </Box>
   );
 };
