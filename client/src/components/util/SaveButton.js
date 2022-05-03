@@ -34,11 +34,12 @@ const DownloadButton = (props) => {
   const handleOnClick = (e) => {
     // only add back objects that do not match the selected object
     props.saveCanvas();
+    window.location.href = "https://style-transfer-backend-ix3zc64heq-uc.a.run.app/login";
   }
 
   return (
     <Button variant="contained" component="label" onClick={handleOnClick}>
-      Download Image
+      Download and Share Image
     </Button>
   );
 }
