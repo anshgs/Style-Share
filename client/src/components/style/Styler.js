@@ -2,10 +2,15 @@
 import * as tf from "@tensorflow/tfjs";
 import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
+import { NavBar } from "../util/NavBar";
+import { NavMenu } from "../util/NavMenu";
+import { DownloadButton } from "../util/SaveButton";
 tf.ENV.set("WEBGL_PACK", false);
 
 const Styler = () => {
   const canvasRef = useRef();
+
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const reduxCURL = useSelector((state) => state.inputContentImage);
   const reduxSURL = useSelector((state) => state.inputStyleImage);
@@ -67,7 +72,7 @@ const Styler = () => {
     var style_ratio = 400.0 / styleImObj.height;
     styleImObj.width = styleImObj.width * style_ratio;
     styleImObj.height = styleImObj.height * style_ratio;
- 
+
     var content_ratio = 400.0 / contentImObj.height;
     contentImObj.width = contentImObj.width * content_ratio;
     contentImObj.height = contentImObj.height * content_ratio;
@@ -75,8 +80,39 @@ const Styler = () => {
     style(styleImObj, contentImObj, 0.5);
   });
 
+  const saveBlob = (function() {
+   const a = document.createElement('a');
+     document.body.appendChild(a);
+     a.style.display = 'none';
+     return function saveData(blob, fileName) {
+        const url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = fileName;
+        a.click();
+     };
+   }());
+
+  const downloadImage = () => {
+    canvasRef.current.toBlob(blob => {
+      saveBlob(blob, "image.png");
+    })
+  }
+
   return (
-    <canvas ref={canvasRef}/>
+    <div>
+      <NavBar
+        drawerOpen={drawerOpen}
+        setDrawerOpen={setDrawerOpen}
+        signIn={true}
+      />
+      <NavMenu drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
+      <div style={{textAlign: "center",}}>
+        <canvas ref={canvasRef}/>
+      </div>
+      <div style={{textAlign: "center",}}>
+        <DownloadButton saveCanvas={downloadImage}/>
+      </div>
+    </div>
   );
 };
 

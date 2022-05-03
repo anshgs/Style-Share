@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import Box from '@material-ui/core/Box'
 import { UploadButton } from "./UploadButton";
 import { DeleteButton } from "./DeleteButton";
-import { SaveStyleButton, SaveContentButton } from "./SaveButton";
+import { SaveStyleButton, SaveContentButton } from "../util/SaveButton";
 import { SceneList } from './SceneList';
 import { EnvironmentSelector } from './EnvironmentSelector';
 import { TransformOptions } from './TransformOptions';
