@@ -29,7 +29,7 @@ const HomePage = () => {
         setDrawerOpen={setDrawerOpen}
         signIn={true}
       />
-      <NavMenu drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
+      {drawerOpen && <NavMenu drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />}
       <Box>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Typography

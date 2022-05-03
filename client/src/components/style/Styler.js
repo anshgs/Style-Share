@@ -3,11 +3,12 @@ import * as tf from "@tensorflow/tfjs";
 import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@mui/styles";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { NavBar } from "../util/NavBar";
 import { NavMenu } from "../util/NavMenu";
 import { DownloadButton } from "../util/SaveButton";
-
+import LoadingSpin from "react-loading-spin";
+ 
 tf.ENV.set("WEBGL_PACK", false);
 
 const useStyles = makeStyles({
@@ -29,7 +30,7 @@ const Styler = () => {
 
   const classes = useStyles();
   const [drawerOpen, setDrawerOpen] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
   const reduxCURL = useSelector((state) => state.inputContentImage);
   const reduxSURL = useSelector((state) => state.inputStyleImage);
 
@@ -71,6 +72,7 @@ const Styler = () => {
         styleCombo,
       ]).squeeze(), canvasRef.current).then(function(arr){console.log(arr)});
       console.log("Done");
+      setIsLoading(false);
     });
     });
   });
@@ -96,6 +98,7 @@ const Styler = () => {
     contentImObj.height = contentImObj.height * content_ratio;
 
     style(styleImObj, contentImObj, 0.5);
+    
   });
 
   const saveBlob = (function() {
@@ -123,13 +126,25 @@ const Styler = () => {
         setDrawerOpen={setDrawerOpen}
         signIn={false}
       />
-      <NavMenu drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
+      {drawerOpen && <NavMenu drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />}
+      {isLoading && <div style={{display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        margin:"100px"}}>
+        { isLoading && <LoadingSpin
+            primaryColor={"#3ea6fa"}
+            size={"300px"}
+          />}
+        {isLoading && <Typography variant="h3" style={{backgroundColor:"white", margin: "50px"}}>Transferring...</Typography>}
+      </div>}
+      { !isLoading && 
       <div style={{textAlign: "center", padding: 25,}}>
         <canvas style={{padding: 25, background: "white", backgroundClip: "padding-box",}} ref={canvasRef}/>
-      </div>
-      <div style={{textAlign: "center", padding: 10}}>
+      </div> }
+      {! isLoading && <div style={{textAlign: "center", padding: 10}}>
         <DownloadButton saveCanvas={downloadImage}/>
-      </div>
+      </div>}
     </Box>
   );
 };
