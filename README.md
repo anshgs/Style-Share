@@ -21,7 +21,7 @@ Redux was used to pass global data between the different webpages. This allowed 
 
 ### Results Page
 
-Once the user has finalized their results and clicked the activate button, they are redirected to the results page. React's componentDidMount feature is used to run the style transfer on the images before it's eventually displayed. The style transfer is done usin the Tensorflow.js library.
+Once the user has finalized their results and clicked the activate button, they are redirected to the results page. React's componentDidMount feature is used to run the style transfer on the images before it's eventually displayed. The style transfer is done using a CNN based model with two components, a style prediction network which converts a given image into a vector representing its style, and then a style generating network to combine a style vector and an image into the resulting image. Both portions of the model are implemented ande executed using the tensorflowJS library.
 
 ## Development Environment
 
