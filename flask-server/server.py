@@ -1,3 +1,10 @@
+import json, os
+import image as img
+import firestore_db as fdb
+import requests
+
+from dotenv import load_dotenv
+
 from flask import Flask, redirect, render_template, request, url_for
 from oauthlib.oauth2 import WebApplicationClient
 from flask_login import (
@@ -9,24 +16,23 @@ from flask_login import (
 )
 from google.cloud import storage
 from user import User
+from flask_cors import CORS
 
+load_dotenv()
 
-import json, os
-import image as img
-import firestore_db as fdb
-import requests
-
-GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
-GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
 
-STYLE_TRANSFER_URL = "http://styletransfer.com"
+#STYLE_TRANSFER_URL = os.getenv("STYLE_TRANSFER_URL")
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 app = Flask(__name__)
+CORS(app)
+
 app.secret_key = os.urandom(24)
 
 login_manager = LoginManager()
@@ -99,7 +105,7 @@ def callback():
     
     login_user(user)
 
-    return redirect(STYLE_TRANSFER_URL)
+    return redirect(url_for("kill_app"))
 
 @app.route("/logout")
 @login_required
@@ -116,18 +122,21 @@ def get_google_provider_cfg():
 
 @app.route("/upload", methods=["POST"])
 def upload():
-    if current_user.is_authenticated:
-        picture = request.files['picture']
-        url = img.upload_to_bucket(picture)
+    if request.method != "POST":
+        return "Not allowed", 405
+
+    #current_user.is_authenticated:
+        
+    picture = request.files['picture']
+    url = img.upload_to_bucket(picture)
 
         # get user id
-        user_id = current_user.id
-        fdb.create_image(user_id, url)
+    user_id = current_user.id
+       #fdb.create_image(user_id, url)
 
-        return url
-    else:
-        redirect("/login")
-
+    return url
+    
+        #redirect("/login")
 
 
 @app.route("/gallery")
@@ -148,6 +157,10 @@ def return_user_images():
     images = fdb.get_user_images(user_id)["images"]
 
     return render_template("userview.html", images = images, **get_data(), style_transfer_url=STYLE_TRANSFER_URL)
+
+@app.route("/kill_app")
+def kill_app():
+    return render_template("kill_app.html")
 
 def get_data():
     is_auth = current_user.is_authenticated
