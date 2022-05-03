@@ -19,12 +19,10 @@
   },
   "scripts": {
     "install:client": "echo 'installing client dependencies...' && yarn --cwd client",
-    "install:server": "echo 'installing server dependencies...' && yarn --cwd server",
     "install:base": "echo 'installing base dependencies...' && yarn install",
-    "install:all": "yarn run install:base && yarn run install:client && yarn run install:server",
+    "install:all": "yarn run install:base && yarn run install:client",
     "client": "yarn --cwd client run start",
-    "server": "yarn --cwd server nodemon index",
-    "start": "concurrently \"yarn run server\" \"yarn run client\"",
+    "start": "yarn run client",
     "test:client": "yarn --cwd client run test:unit",
     "test:unit": "yarn run test:client",
     "test:unit:watch": "npm run test:unit -- --watch"
