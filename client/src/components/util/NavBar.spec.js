@@ -9,6 +9,5 @@ describe("App Component", () => {
     expect(wrapper.find(Toolbar)).to.have.length(1); //check for 1 Toolbar
     expect(wrapper.find(IconButton)).to.have.length(1); //check for 1 IconButton
     expect(wrapper.find(Typography)).to.have.length(1); //check for 1 Toolbar
-    expect(wrapper.find(Button)).to.have.length(2); //check for 1 IconButton
   });
 });
