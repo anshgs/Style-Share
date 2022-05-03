@@ -54,9 +54,11 @@ const HomePage = () => {
               padding: "15px",
               borderRadius: "25px",
               marginTop: "5vh",
+              cursor: "pointer",
             }}
+            onClick={(e) => (window.location = "/edit")}
           >
-            Sign-in now to share your work later!
+            Get started now!
           </Typography>
         </Box>
       </Box>

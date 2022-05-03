@@ -28,21 +28,6 @@ const NavBar = ({ drawerOpen, setDrawerOpen, signIn }) => {
         >
           3D Style Transfer
         </Typography>
-        {signIn && (
-          <Button
-            color="inherit"
-            sx={{
-              textTransform: "none",
-              fontSize: "24px",
-              // backgroundColor: "#3ea6fa",
-              marginRight: "10px",
-              // color: "white",
-            }}
-            onClick={handleSignin}
-          >
-            Sign-in with Google
-          </Button>
-        )}
       </Toolbar>
     </AppBar>
   );

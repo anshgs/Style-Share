@@ -14,16 +14,16 @@ const NavMenu = ({ drawerOpen, setDrawerOpen }) => {
           <ListItemText primary="Home" />
         </ListItem>
 
-        <ListItem button onClick={(e) => (window.location = "/upload")}>
-          <ListItemText primary="Upload" />
-        </ListItem>
-
-        <ListItem button onClick={(e) => (window.location = "/style")}>
-          <ListItemText primary="Style" />
-        </ListItem>
-
         <ListItem button onClick={(e) => (window.location = "/edit")}>
-          <ListItemText primary="Edit" />
+          <ListItemText primary="Create Scene" />
+        </ListItem>
+
+        <ListItem button onClick={(e) => (window.location = "/upload")}>
+          <ListItemText primary="Style Images" />
+        </ListItem>
+
+        <ListItem button onClick={(e) => (window.location.href = " https://style-transfer-backend-ix3zc64heq-uc.a.run.app/gallery")}>
+          <ListItemText primary="View Gallery" />
         </ListItem>
       </List>
     </Drawer>
