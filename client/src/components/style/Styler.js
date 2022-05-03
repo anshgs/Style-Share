@@ -2,14 +2,31 @@
 import * as tf from "@tensorflow/tfjs";
 import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
+import { makeStyles } from "@mui/styles";
+import { Box } from "@mui/material";
 import { NavBar } from "../util/NavBar";
 import { NavMenu } from "../util/NavMenu";
 import { DownloadButton } from "../util/SaveButton";
 tf.ENV.set("WEBGL_PACK", false);
 
+const useStyles = makeStyles({
+  wpp: {
+    minHeight: "100vh",
+    maxWidth: "100vw",
+    backgroundImage: `url(${"./tempwpp.jpg"})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+
+    display: "flex",
+    flexDirection: "column",
+    fontFamily: "Fredericka the Great",
+  },
+});
+
 const Styler = () => {
   const canvasRef = useRef();
 
+  const classes = useStyles();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const reduxCURL = useSelector((state) => state.inputContentImage);
@@ -99,20 +116,20 @@ const Styler = () => {
   }
 
   return (
-    <div>
+    <Box className={classes.wpp}>
       <NavBar
         drawerOpen={drawerOpen}
         setDrawerOpen={setDrawerOpen}
         signIn={true}
       />
       <NavMenu drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
-      <div style={{textAlign: "center",}}>
-        <canvas ref={canvasRef}/>
+      <div style={{textAlign: "center", padding: 25,}}>
+        <canvas style={{padding: 25, background: "white", backgroundClip: "content-box",}} ref={canvasRef}/>
       </div>
-      <div style={{textAlign: "center",}}>
+      <div style={{textAlign: "center", padding: 10}}>
         <DownloadButton saveCanvas={downloadImage}/>
       </div>
-    </div>
+    </Box>
   );
 };
 
