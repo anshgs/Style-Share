@@ -1,7 +1,9 @@
 node_modules/
 yarn-error.log
-ml_training/images
-
+ml_training/data
+ml_training/saved_data
+ml_training/saved_painting_data
+ml_training/wikiart
 __pycache__/
 env/
 creds.json
