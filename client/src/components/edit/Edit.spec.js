@@ -10,9 +10,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { OBJModel } from "./3DModel";
 import React from "react";
-import { Provider } from 'react-redux';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import configureStore from 'redux-mock-store';
 
 describe("Edit Page", () => {
   // check editor scene
