@@ -62,7 +62,7 @@ const UploadPage = () => {
       <NavBar
         drawerOpen={drawerOpen}
         setDrawerOpen={setDrawerOpen}
-        signIn={true}
+        signIn={false}
         style={{outline: "solid"}}
       ></NavBar>
       {drawerOpen && <NavMenu drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />}

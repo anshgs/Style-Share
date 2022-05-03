@@ -56,7 +56,7 @@ const HomePage = () => {
               marginTop: "5vh",
             }}
           >
-            Sign up now for free
+            Sign-in now to share your work later!
           </Typography>
         </Box>
       </Box>

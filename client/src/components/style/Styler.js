@@ -120,7 +120,7 @@ const Styler = () => {
       <NavBar
         drawerOpen={drawerOpen}
         setDrawerOpen={setDrawerOpen}
-        signIn={true}
+        signIn={false}
       />
       <NavMenu drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
       <div style={{textAlign: "center", padding: 25,}}>

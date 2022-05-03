@@ -10,7 +10,7 @@ const NavMenu = ({ drawerOpen, setDrawerOpen }) => {
       sx={{ zIndex: 1600, "div:nth-child(1)": { position: "relative" } }}
     >
       <List>
-        <ListItem button>
+        <ListItem button onClick={(e) => (window.location = "/")}>
           <ListItemText primary="Home" />
         </ListItem>
 
