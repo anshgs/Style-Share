@@ -116,33 +116,6 @@ const Styler = () => {
     })
   }
 
-  const shareImage = () => {
-    canvasRef.current.toBlob(blob => {
-      const tempfile = new File([blob], 'image.png', {
-          type: blob.type,
-      });
-      let form = new FormData();
-      form.append("picture", tempfile);
-
-      for (var pair of form.entries()) {
-          console.log(pair[0]+ ', ' + pair[1]);
-      }
-
-      const response = fetch("https://style-transfer-backend-ix3zc64heq-uc.a.run.app/upload", {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'no-cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
-        redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: form // body data type must match "Content-Type" header
-      });
-    })
-  }
-
   return (
     <Box className={classes.wpp}>
       <NavBar
