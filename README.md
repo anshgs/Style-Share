@@ -2,6 +2,8 @@
 
 Style Share is a website that allows users to create 3d scenes and use a machine learning model to stylize them according to the style of another image. Once styling is complete, users are also given the option to download their images and share them to a gallery.
 
+You can test out the application here: https://style-transfer-client-ix3zc64heq-uc.a.run.app/
+
 ## Technical Architecture
 
 We're using a React framework with React-Router to redirect between different pages. The website consists of 4 main pages:
