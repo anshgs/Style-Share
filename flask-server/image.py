@@ -1,8 +1,13 @@
 from google.cloud import storage
 import random
 import string
+import os
 
-bucket_name = "styled-images"
+from dotenv import load_dotenv
+
+load_dotenv()
+
+bucket_name = os.getenv('BUCKET_NAME')
 storage_client = storage.Client.from_service_account_json("./config/creds.json")
 bucket = storage_client.get_bucket(bucket_name)
 

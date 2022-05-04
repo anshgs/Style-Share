@@ -14,7 +14,6 @@ from flask_login import (
     login_user,
     logout_user,
 )
-from google.cloud import storage
 from user import User
 from flask_cors import CORS
 
@@ -26,11 +25,10 @@ GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
 
-#STYLE_TRANSFER_URL = os.getenv("STYLE_TRANSFER_URL")
-
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 app = Flask(__name__)
+
 CORS(app)
 
 app.secret_key = os.urandom(24)
@@ -47,7 +45,7 @@ def load_user(user_id):
 
 @app.route("/")
 def index():
-    return render_template("home.html", **get_data(), style_transfer_url = STYLE_TRANSFER_URL)   
+    return render_template("home.html", **get_data())   
 
 
 @app.route("/login")
@@ -62,6 +60,7 @@ def login():
     )
 
     return redirect(request_uri)
+
 
 @app.route("/login/callback")
 def callback():
@@ -105,7 +104,8 @@ def callback():
     
     login_user(user)
 
-    return redirect(url_for("kill_app"))
+    return redirect(url_for("upload"))
+
 
 @app.route("/logout")
 @login_required
@@ -113,40 +113,34 @@ def logout():
     logout_user()
     return redirect(url_for("index"))
 
-@app.route("/getall")
-def get_all():
-    return fdb.get_all_users()
 
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
 
-@app.route("/upload", methods=["POST"])
+
+@app.route("/user/upload", methods=["POST"])
 def upload():
     if request.method != "POST":
         return "Not allowed", 405
 
-    #current_user.is_authenticated:
-        
-    picture = request.files['picture']
-    url = img.upload_to_bucket(picture)
+    if current_user.is_authenticated:
+        picture = request.files['picture']
+        url = img.upload_to_bucket(picture)
 
-        # get user id
-    user_id = current_user.id
-       #fdb.create_image(user_id, url)
+        user_id = current_user.id
+        fdb.create_image(user_id, url)
 
-    return url
+        return redirect(url_for("user_upload"))
     
-        #redirect("/login")
+    redirect("/login")
 
 
 @app.route("/gallery")
 def return_gallery():
-    if not current_user.is_authenticated:
-        return redirect("/login")
-    
-    images = fdb.get_random_image(15)
+    images = fdb.get_random_image(9)
 
-    return render_template("gallery.html", images = images, **get_data(), style_transfer_url=STYLE_TRANSFER_URL)
+    return render_template("gallery.html", images = images, **get_data())
+
 
 @app.route("/user/images")
 def return_user_images():
@@ -156,11 +150,16 @@ def return_user_images():
     user_id = current_user.id
     images = fdb.get_user_images(user_id)["images"]
 
-    return render_template("userview.html", images = images, **get_data(), style_transfer_url=STYLE_TRANSFER_URL)
+    return render_template("userview.html", images = images, **get_data())
 
-@app.route("/kill_app")
-def kill_app():
-    return render_template("kill_app.html")
+
+@app.route("/user/upload")
+def user_upload():
+    if not current_user.is_authenticated:
+        return redirect("/login")
+    
+    return render_template("userupload.html", **get_data())
+
 
 def get_data():
     is_auth = current_user.is_authenticated
